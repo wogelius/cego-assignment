@@ -2,7 +2,7 @@
 
 ## Table of contents
 * [General info](#general-info)
-* [Directory structure](#directory-structure)
+* [Important directoies and files](#important-directoies-and-files)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Testing](#testing)
@@ -34,7 +34,6 @@ Project is created with:
 * php:7.4-cli-alpine (Docker base image)
 * mysql:8 (Docker base image)
 * Laravel v7.18.0
-* 
 
 ## Setup
 To run this project, do the following:
