@@ -23,7 +23,7 @@ The Laravel-app queries the database for all the users and writes each of them a
 * /.env - Contains environment variables that are injected to docker-compose.yml
 * /docker-compose.yml - Contains all the configuration for docker-compose
 * /sqldump - All sql dumps located here will be run by the MySQL-container on startup
-* /output - The resulting csv-file will be located here
+* /output/user_export.csv - The resulting csv-file will be located here
 * /app - The directory containing the Laravel-app
 * /app/Dockerfile - From this file, the Docker image of the Laravel app is generated
 
