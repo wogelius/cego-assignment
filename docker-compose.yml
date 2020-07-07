@@ -1,0 +1,36 @@
+# Use root/example as user/password credentials
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - type: bind
+        source: ./dbseed
+        target: /docker-entrypoint-initdb.d
+  
+  app:
+    build: app
+    environment: 
+      DB_HOST: "db"
+      DB_DATABASE: "${DB_DATABASE}"
+      DB_USERNAME: "root"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      WAIT_HOSTS: "db:3306"
+      WAIT_HOSTS_TIMEOUT: 30
+      WAIT_SLEEP_INTERVAL: 1
+      WAIT_HOST_CONNECT_TIMEOUT: 1
+    volumes:
+      - type: bind
+        source: ./output
+        target: /opt/app/storage/app
+    command: /bin/sh -c "envsubst < /opt/app/.env.production > /opt/app/.env &&
+        php artisan key:generate &&
+        /wait &&
+        php artisan run"
+    depends_on: 
+      - db
