@@ -46,7 +46,7 @@ class run extends Command
      */
     public function handle()
     {
-        $file = fopen(storage_path('app/user_export.csv'), 'w');
+        $file = fopen(storage_path('app/user_export.csv'), 'a');
         $bar = $this->output->createProgressBar(User::count());
         $bar->start();
 
