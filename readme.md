@@ -2,7 +2,7 @@
 
 ## Table of contents
 * [General info](#general-info)
-* [Important directoies and files](#important-directoies-and-files)
+* [Important directories and files](#important-directories-and-files)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Testing](#testing)
@@ -19,12 +19,12 @@ When running the app using docker-compose, it launches a mysql-container that au
 It then launces the app-container, which waits for the MySQL-container to be ready to accept connections, before it launches the Laravel-app.
 The Laravel-app queries the database for all the users and writes each of them as a line in a CSV-file, which is 
 
-## Important directoies and files
+## Important directories and files
 * /.env - Contains environment variables that are injected to docker-compose.yml
 * /docker-compose.yml - Contains all the configuration for docker-compose
 * /sqldump - All sql dumps located here will be run by the MySQL-container on startup
 * /output - The resulting csv-file will be located here
-* /app - The directory containeng the Laravel-app
+* /app - The directory containing the Laravel-app
 * /app/Dockerfile - From this file, the Docker image of the Laravel app is generated
 
 ## Technologies
