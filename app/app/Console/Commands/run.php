@@ -50,7 +50,7 @@ class run extends Command
         $bar = $this->output->createProgressBar(User::count());
         $bar->start();
 
-        User::chunkById(200, function ($users) use ($file, $bar) {
+        while (!($users = User::take($this->chunkSize)->get())->isEmpty()) {
             $users->each(function ($user) use ($file, $bar) {
                 if (fputcsv($file, $user->toArray()) == false) {
                     fclose($file);
@@ -59,7 +59,21 @@ class run extends Command
                 $user->delete();
                 $bar->advance();
             });
-        });
+        }
+
+        // Old code could generate some unexpected results when deleting while chunking,
+        // Also the chunksize should be taken from $this->chunkSize.
+        //
+        // User::chunkById($this->chunkSize, function ($users) use ($file, $bar) {
+        //     $users->each(function ($user) use ($file, $bar) {
+        //         if (fputcsv($file, $user->toArray()) == false) {
+        //             fclose($file);
+        //             throw new Exception("Error writing to file.");
+        //         };
+        //         $user->delete();
+        //         $bar->advance();
+        //     });
+        // });
 
         fclose($file);
         $bar->finish();

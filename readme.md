@@ -52,5 +52,5 @@ The project can be tested by doing the following:
 $ git clone https://github.com/wogelius/cego-assignment.git
 $ cd cego-assignment/app
 $ composer install
-$ php vendor\phpunit\phpunit\phpunit
+$ php vendor/phpunit/phpunit/phpunit
 ```

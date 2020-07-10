@@ -29,4 +29,27 @@ class AppTest extends TestCase
         $this->assertCount(500, file($filePath));
         unlink($filePath);
     }
+
+    /**
+     * This test ensures that the correct records are applied to the file
+     *
+     * @test
+     */
+
+     public function it_generates_the_correct_records()
+     {
+        factory(User::class, 500)->create();
+        $users = User::all();
+
+        $filePath = storage_path('app/user_export.csv');
+
+        $this->artisan('run');
+        $file = fopen($filePath, 'r');
+
+        foreach ($users as $user) {
+            $this->assertEquals(array_values($user->toArray()), fgetcsv($file));
+        }
+
+        unlink($filePath);
+     }
 }
